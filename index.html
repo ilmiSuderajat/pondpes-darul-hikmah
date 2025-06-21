@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="output.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/a685cbb4d0.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pondpes Darul Hikmah</title>
+    <style>
+        /* Custom scrollbar for chat */
+        #chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chat-messages::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body style="font-family: 'Roboto', sans-serif;" class="bg-gradient-to-br from-green-900 to-green-700 min-h-screen">
+
+
+           <nav class="sticky top-0 z-40 max-w-7xl mx-auto bg-white/10 backdrop-blur-md flex justify-between items-center p-4 rounded-b-2xl shadow-lg text-white">
+            <!-- Strukturnya sudah diperbaiki di sini -->
+            <div class="flex items-center space-x-3">
+                <img class="w-12 h-12 object-contain" src="logo.png" alt="Logo">
+                <div class="leading-tight text-sm space-y-0.5">
+                    <h1 class="font-semibold">Pondok Pesantren</h1>
+                    <h1 class="font-bold">Darul Hikmah</h1>
+                    <p>Kronjo-Tangerang-Banten</p>
+                </div>
+            </div>
+                    <ul class="hidden lg:flex items-center space-x-6 text-lg">
+                        <li><a href="#" class="hover:text-yellow-300">Beranda</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Profil</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Informasi</a></li>
+                        <li><a href="kajian.html" class="hover:text-yellow-300">Kajian</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Alumni</a></li>
+                    </ul>
+
+                    <div class="hidden md:flex items-center space-x-2">
+                        <input type="text" placeholder="Search" class="bg-white text-green-900 text-center rounded-2xl border-2 border-green-700 outline-none px-4 py-1 w-64 h-10">
+                        <button class="text-2xl hover:text-green-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    
+                    <button id="btn-sidebar" class="text-2xl lg:hidden">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+           </nav>
+
+        <main class="max-w-7xl mx-auto mt-4 px-4">
+             <!-- Wadah utama dengan layout grid untuk desktop -->
+            <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+
+                <!-- KOLOM KIRI: Konten Utama (2/3 dari layar) -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- Slider -->
+                    <div class="relative overflow-hidden rounded-2xl h-80">
+                         <div class="slide-container relative w-full h-full">
+                            <div class="absolute inset-0 bg-black/50 z-20"></div>
+                            <div class="flex flex-col items-center text-center">
+                                <h1 class="absolute inset-0 z-30 flex items-center justify-center text-white text-2xl md:text-3xl font-bold">
+                                    مَعْهَدُ دَارِ الْحِكْمَةِ
+                                </h1>
+                                <h1 class="text-center absolute inset-0 z-30 flex items-center justify-center text-yellow-400 text-xl md:text-2xl mt-20 font-bold">
+                                    Pondok Pesantren Darul Hikmah
+                                </h1>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1593481294243-85a2b55a153c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide absolute w-full h-full object-cover transition-opacity duration-700 opacity-100 z-10" alt="Suasana Pesantren 1">
+                            <img src="https://images.unsplash.com/photo-1619473413809-7c1541c49b0f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide absolute w-full h-full object-cover transition-opacity duration-700 opacity-0 z-10" alt="Suasana Pesantren 2">
+                            <img src="https://images.unsplash.com/photo-1618060935133-a2611a5813f2?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="slide absolute w-full h-full object-cover transition-opacity duration-700 opacity-0 z-10" alt="Suasana Pesantren 3">
+                        </div>
+                        <button id="prevBtn" class="absolute left-3 top-1/2 z-30 transform -translate-y-1/2 bg-white/50 text-white p-2 rounded-full hover:bg-white/70">
+                            <i class="fa-solid fa-chevron-left text-xl"></i>
+                        </button>
+                        <button id="nextBtn" class="absolute right-3 top-1/2 z-30 transform -translate-y-1/2 bg-white/50 text-white p-2 rounded-full hover:bg-white/70">
+                            <i class="fa-solid fa-chevron-right text-xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- Program Unggulan -->
+                    <section class="bg-gray-100 py-12 md:py-16 rounded-2xl">
+                        <div class="px-4 sm:px-6 lg:px-8">
+                            <div class="text-center">
+                                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Program Unggulan Kami</h2>
+                                <p class="mt-4 text-lg text-gray-600">Membentuk generasi Qur'ani yang cerdas, berakhlak, dan modern.</p>
+                            </div>
+                            <div class="mt-12 overflow-x-auto pb-4">
+                                <div class="flex space-x-4 sm:space-x-6 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:space-x-0">
+                                    <!-- Card-card program unggulan -->
+                                    <div class="flex-shrink-0 w-3/4 sm:w-1/2 md:w-auto bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border-2 border-green-900">
+                                        <img class="h-32 w-full object-cover" src="https://placehold.co/600x400/166534/FFFFFF?text=Tahfidz" alt="Program Tahfidz Al-Qur'an">
+                                        <div class="p-4"><h3 class="text-base font-semibold text-gray-900">Tahfidz Qur'an</h3><p class="mt-2 text-sm text-gray-600">Program intensif menghafal Al-Qur'an.</p></div>
+                                    </div>
+                                    <div class="flex-shrink-0 w-3/4 sm:w-1/2 md:w-auto bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border-2 border-green-900">
+                                        <img class="h-32 w-full object-cover" src="https://placehold.co/600x400/15803d/FFFFFF?text=Kitab" alt="Program Kajian Kitab Kuning">
+                                        <div class="p-4"><h3 class="text-base font-semibold text-gray-900">Kajian Kitab</h3><p class="mt-2 text-sm text-gray-600">Mendalami keilmuan Islam klasik.</p></div>
+                                    </div>
+                                    <div class="flex-shrink-0 w-3/4 sm:w-1/2 md:w-auto bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border-2 border-green-900">
+                                        <img class="h-32 w-full object-cover" src="https://placehold.co/600x400/0f766e/FFFFFF?text=Bahasa" alt="Program Bahasa Asing">
+                                        <div class="p-4"><h3 class="text-base font-semibold text-gray-900">Bahasa Asing</h3><p class="mt-2 text-sm text-gray-600">Menguasai Bahasa Arab & Inggris.</p></div>
+                                    </div>
+                                    <div class="flex-shrink-0 w-3/4 sm:w-1/2 md:w-auto bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 border-2 border-green-900">
+                                        <img class="h-32 w-full object-cover" src="https://placehold.co/600x400/0e7490/FFFFFF?text=Digital" alt="Program Digital Skill">
+                                        <div class="p-4"><h3 class="text-base font-semibold text-gray-900">Digital Skill</h3><p class="mt-2 text-sm text-gray-600">Keahlian coding & desain modern.</p></div>       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div> <!-- Akhir Kolom Kiri -->
+
+                <!-- KOLOM KANAN: Sidebar Informasi & Kajian (1/3 dari layar) -->
+                <aside class="lg:col-span-1 mt-8 lg:mt-0">
+                    <div class="sticky top-24 space-y-8"> <!-- top-24 agar ada jarak dari navbar sticky -->
+                        <!-- Widget Kajian Terbaru -->
+                        <div class="bg-white p-6 rounded-2xl shadow-lg">
+                            <h3 class="text-xl font-bold text-gray-900">Kajian Terbaru</h3>
+                            <div class="mt-6 space-y-4">
+                                <!-- Item Kajian 1 -->
+                                <a href="#" class="block group">
+                                    <p class="text-gray-500 text-sm">18 Juni 2025</p>
+                                    <h4 class="font-semibold text-gray-800 group-hover:text-green-700">Tafsir Surat Al-Fatihah: Makna di Balik Ummul Kitab</h4>
+                                </a>
+                                <!-- Item Kajian 2 -->
+                                <a href="#" class="block group">
+                                    <p class="text-gray-500 text-sm">17 Juni 2025</p>
+                                    <h4 class="font-semibold text-gray-800 group-hover:text-green-700">Fiqih Muamalah: Prinsip Jual Beli dalam Islam</h4>
+                                </a>
+                                <!-- Item Kajian 3 -->
+                                <a href="#" class="block group">
+                                    <p class="text-gray-500 text-sm">16 Juni 2025</p>
+                                    <h4 class="font-semibold text-gray-800 group-hover:text-green-700">Kisah Teladan: Kesabaran Nabi Ayyub A.S.</h4>
+                                </a>
+                                <button class="w-full mt-4 bg-green-700 text-white py-2 rounded-lg hover:bg-green-600">Lihat Semua Kajian</button>
+                            </div>
+                        </div>
+
+                         <!-- Widget Informasi -->
+                         <div class="bg-white p-6 rounded-2xl shadow-lg">
+                            <h3 class="text-xl font-bold text-gray-900">Informasi Penting</h3>
+                             <div class="mt-6 space-y-4">
+                                <!-- Item Informasi 1 -->
+                                <a href="#" class="flex items-start space-x-4 group">
+                                    <img src="https://placehold.co/100x100/16a34a/FFFFFF?text=Info" alt="Info Pendaftaran" class="w-20 h-20 object-cover rounded-md flex-shrink-0">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800 group-hover:text-green-700">Pendaftaran Santri Baru Tahun Ajaran 2025/2026 Dibuka!</h4>
+                                        <p class="text-gray-500 text-sm mt-1">Klik untuk melihat detail & alur pendaftaran.</p>
+                                    </div>
+                                </a>
+                             </div>
+                        </div>
+                    </div>
+                </aside> <!-- Akhir Kolom Kanan -->
+            </div>
+        </main>
+        
+        <!-- Sidebar dan Fitur AI ditaruh di luar main agar tidak terpengaruh layout grid -->
+        <div id="sidebar" class="w-64 h-full bg-green-700 backdrop-blur-2xl text-white fixed top-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="p-4 flex justify-between items-center">
+                <h2 class="font-bold text-xl">Menu</h2>
+                <button id="btn-close" class="text-2xl"><i class="fa-solid fa-x"></i></button>
+            </div>
+            <ul class="flex flex-col p-4 space-y-2">
+                <div class="flex mb-4"><input class="w-full h-8 bg-white text-black outline-0 text-center rounded-l-md" type="text" placeholder="Search"><button class="bg-green-500 px-3 rounded-r-md"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <li><a href="#" class="block p-3 hover:bg-gray-700 rounded">Beranda</a></li>
+                <li><a href="#" class="block p-3 hover:bg-gray-700 rounded">Profil</a></li>
+                <li><a href="#" class="block p-3 hover:bg-gray-700 rounded">Informasi</a></li>
+                <li><a href="kajian.html" class="block p-3 hover:bg-gray-700 rounded">Kajian</a></li>
+                <li><a href="#" class="block p-3 hover:bg-gray-700 rounded">Alumni</a></li>
+            </ul>
+        </div>
+        
+        <section class="bg-green-800 py-12 md:py-20 mt-8">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-extrabold text-white sm:text-4xl">✨ Pojok Dakwah AI</h2>
+                <p class="mt-4 text-lg text-yellow-300">Butuh inspirasi untuk ceramah? Masukkan tema, dan biarkan AI membantu Anda.</p>
+                <div class="mt-8 max-w-xl mx-auto flex">
+                    <input id="tema-khutbah" type="text" placeholder="Contoh: Pentingnya Shalat" class="w-full px-5 py-3 rounded-l-md border-2 border-transparent focus:outline-none focus:border-yellow-400 disabled:bg-gray-300">
+                    <button id="buat-khutbah-btn" class="bg-yellow-400 hover:bg-yellow-500 text-green-900 font-bold px-6 py-3 rounded-r-md disabled:bg-yellow-200">Buat Kerangka</button>
+                </div>
+                <div id="hasil-khutbah" class="mt-8 p-6 bg-white rounded-lg text-left text-gray-800 hidden whitespace-pre-wrap min-h-[100px]"></div>
+            </div>
+        </section>
+
+        <div id="ustadz-ai-container" class="fixed bottom-5 right-5 z-50">
+            <button id="open-chat-btn" class="bg-green-700 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition-transform hover:scale-110">
+                <i class="fa-solid fa-comments text-2xl"></i>
+            </button>
+        </div>
+
+        <div id="chat-modal" class="fixed inset-0 bg-black/60 z-50 hidden justify-center items-center p-4">
+            <div class="bg-gray-800 text-white rounded-lg shadow-xl w-full max-w-lg h-[80vh] flex flex-col">
+                <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                    <h3 class="text-xl font-bold">✨ Tanya Ustadz AI</h3>
+                    <button id="close-chat-btn" class="text-2xl">&times;</button>
+                </div>
+                <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4">
+                    <div class="flex"><div class="bg-green-700 rounded-lg p-3 max-w-xs"><p>Assalamualaikum, ada yang bisa dibantu seputar Pondok Pesantren Darul Hikmah?</p></div></div>
+                </div>
+                <div class="p-4 border-t border-gray-700 flex">
+                    <input id="chat-input" type="text" placeholder="Ketik pertanyaan Anda..." class="w-full px-4 py-2 rounded-l-md bg-gray-700 focus:outline-none disabled:bg-gray-600">
+                    <button id="send-chat-btn" class="bg-green-600 hover:bg-green-500 font-bold px-5 py-2 rounded-r-md disabled:bg-green-800">Kirim</button>
+                </div>
+            </div>
+        </div>
+          <!-- FORM PELATIHAN AI (awalnya tersembunyi) -->
+        <div id="training-form" class="p-4 bg-yellow-900/50 border-t border-yellow-700 hidden">
+            <p class="text-yellow-300 text-sm mb-2">Ustadz AI tidak tahu jawabannya. Bantu dia belajar!</p>
+            <div class="space-y-2">
+                <div>
+                    <label for="training-question" class="text-xs font-bold">Pertanyaan:</label>
+                    <textarea id="training-question" rows="2" class="w-full bg-gray-700 p-2 rounded-md text-sm" readonly></textarea>
+                </div>
+                <div>
+                    <label for="training-answer" class="text-xs font-bold">Jawaban yang Benar:</label>
+                    <input id="training-answer" type="text" placeholder="Ketik jawaban yang benar di sini..." class="w-full bg-gray-200 text-black p-2 rounded-md">
+                </div>
+                <button id="submit-training-btn" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded-md">
+                    Kirim Jawaban & Latih AI
+                </button>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-700 flex">
+            <input id="chat-input" type="text" placeholder="Ketik pertanyaan Anda..." class="w-full px-4 py-2 rounded-l-md bg-gray-700 focus:outline-none disabled:bg-gray-600">
+            <button id="send-chat-btn" class="bg-green-600 hover:bg-green-500 font-bold px-5 py-2 rounded-r-md disabled:bg-green-800">
+                Kirim
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Menghubungkan ke file JavaScript eksternal -->
+<!-- Atribut 'defer' memastikan script dijalankan setelah HTML selesai dimuat -->
+<script type="module" src="script.js"></script>
+
+</body>
+</html>

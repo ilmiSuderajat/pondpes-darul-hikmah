@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a685cbb4d0.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Detail Kajian - Pondok Pesantren Darul Hikmah</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .font-kanit {
+            font-family: 'Kanit', sans-serif;
+        }
+        /* Style untuk konten artikel */
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .article-content p {
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+        .article-content blockquote {
+            border-left: 4px solid #15803d;
+            padding-left: 1rem;
+            margin-left: 1rem;
+            font-style: italic;
+            color: green;
+        }
+    </style>
+</head>
+<body class="bg-green-900 text-black">
+
+    <!-- ===== NAVBAR ===== -->
+    <!-- Navbar ini sama dengan halaman sebelumnya untuk konsistensi -->
+    <nav class="sticky top-0 z-40 max-w-7xl mx-auto bg-white/10 backdrop-blur-md flex justify-between items-center p-4 rounded-b-2xl shadow-lg text-white">
+            <!-- Strukturnya sudah diperbaiki di sini -->
+            <div class="flex items-center space-x-3">
+                <img class="w-12 h-12 object-contain" src="logo.png" alt="Logo">
+                <div class="leading-tight text-sm space-y-0.5">
+                    <h1 class="font-semibold">Pondok Pesantren</h1>
+                    <h1 class="font-bold">Darul Hikmah</h1>
+                    <p>Kronjo-Tangerang-Banten</p>
+                </div>
+            </div>
+                    <ul class="hidden lg:flex items-center space-x-6 text-lg">
+                        <li><a href="index.html" class="hover:text-yellow-300">Beranda</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Profil</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Informasi</a></li>
+                        <li><a href="kajian.html" class="hover:text-yellow-300">Kajian</a></li>
+                        <li><a href="#" class="hover:text-yellow-300">Alumni</a></li>
+                    </ul>
+
+                    <div class="hidden md:flex items-center space-x-2">
+                        <input type="text" placeholder="Search" class="bg-white text-green-900 text-center rounded-2xl border-2 border-green-700 outline-none px-4 py-1 w-64 h-10">
+                        <button class="text-2xl hover:text-green-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    
+                    <button id="btn-sidebar" class="text-2xl lg:hidden">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+           </nav>
+            <div id="sidebar" class="w-64 h-full bg-green-700 backdrop-blur-2xl text-white fixed top-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="p-4 flex justify-between items-center">
+                <h2 class="font-bold text-xl">Menu</h2>
+                <button id="btn-close" class="text-2xl"><i class="fa-solid fa-x"></i></button>
+            </div>
+            <ul class="flex flex-col p-4 space-y-2">
+                <div class="flex mb-4"><input class="w-full h-8 bg-white text-black outline-0 text-center rounded-l-md" type="text" placeholder="Search"><button class="bg-green-500 px-3 rounded-r-md"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <li><a href="index.html" class="block p-3 hover:bg-gray-700 rounded">Beranda</a></li>
+                <li><a href="#" class="block p-3 hover:bg-gray-700 rounded">Profil</a></li>
+                <li><a href="#" class="block p-3 hover:bg-gray-700 rounded">Informasi</a></li>
+                <li><a href="kajian.html" class="block p-3 hover:bg-gray-700 rounded">Kajian</a></li>
+                <li><a href="#" class="block p-3 hover:bg-gray-700 rounded">Alumni</a></li>
+            </ul>
+        </div>
+    
+    <!-- ===== KONTEN UTAMA HALAMAN DETAIL KAJIAN ===== -->
+   <!-- Header simpel untuk efek tumpukan -->
+    <div class="h-32 bg-green-900"></div>
+
+    <!-- WADAH KONTEN BARU DENGAN BACKGROUND PUTIH -->
+    <div class="bg-white max-w-4xl mx-auto p-8 sm:p-12 lg:p-16 rounded-2xl shadow-2xl relative -mt-20 z-10">
+        <!-- Main konten sekarang ada di dalam wadah baru ini -->
+        <main id="konten-kajian">
+            <!-- Tampilan Loading -->
+            <p class="text-center text-gray-500 text-lg">Memuat kajian...</p>
+        </main>
+    </div>
+    
+    <!-- Footer bisa ditambahkan di sini, di luar wrapper putih -->
+    <footer class="text-center py-8 text-white">
+        <p>&copy; 2025 Pondok Pesantren Darul Hikmah. All Rights Reserved.</p>
+    </footer>
+
+
+    <!-- "Mesin" untuk membaca URL dan menampilkan konten yang sesuai -->
+    <script type="module" src="detail-kajian.js"></script>
+</body>
+</html>
