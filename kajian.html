@@ -63,7 +63,23 @@
         </div> 
     </main>
 
+     <div id="sidebar" class="w-64 h-full bg-green-700 backdrop-blur-2xl text-white fixed top-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="p-4 flex justify-between items-center">
+                <h2 class="font-bold text-xl">Menu</h2>
+                <button id="btn-close" class="text-2xl"><i class="fa-solid fa-x"></i></button>
+            </div>
+            <ul class="flex flex-col p-4 space-y-2">
+                <div class="flex mb-4"><input class="w-full h-8 bg-white text-black outline-0 text-center rounded-l-md" type="text" placeholder="Search"><button class="bg-green-500 px-3 rounded-r-md"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <li><a href="index.html" class="block p-3 hover:bg-gray-700 rounded">Beranda</a></li>
+                <li><a href="profil.html" class="block p-3 hover:bg-gray-700 rounded">Profil</a></li>
+                <li><a href="informasi.html" class="block p-3 hover:bg-gray-700 rounded">Informasi</a></li>
+                <li><a href="kajian.html" class="block p-3 hover:bg-gray-700 rounded">Kajian</a></li>
+                <li><a href="alumni.html" class="block p-3 hover:bg-gray-700 rounded">Alumni</a></li>
+            </ul>
+        </div>
     <!-- PERUBAHAN DI SINI: Sekarang kita panggil file JS eksternal -->
     <script src="kajian-scripts.js" type="module"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
