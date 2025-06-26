@@ -1,16 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="output.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a685cbb4d0.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Informasi - Pondok Pesantren Darul Hikmah</title>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .font-kanit { font-family: 'Kanit', sans-serif; }
+    </style>
 </head>
-<body class="bg-green-900">
-        <div class="w-full h-dvh flex flex-col text-center items-center justify-center">
-            <h1 class="text-center mt-20 text-gray-100 text-2xl">Maaf Masih Prosess Pengembangan</h1>
-            <a class="mt-10 border-2 bg-gray-100 text-2xl text-green-900 hover:text-blue-500 rounded-2xl w-30 h-10 m-auto" href="index.html">Kembali</a>
+<body class="bg-gray-100">
+
+    <!-- ===== NAVBAR ===== -->
+    <!-- (Salin navbar dari halaman utama untuk konsistensi) -->
+    <nav class="sticky top-0 z-40 bg-white/10 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center p-4 text-white shadow-lg">
+             <div class="flex items-center space-x-3">
+                <img class="w-12 h-12 object-contain" src="https://placehold.co/100x100/FFFFFF/166534?text=DH" alt="Logo">
+                <div class="leading-tight text-sm space-y-0.5">
+                    <h1 class="font-semibold">Pondok Pesantren</h1>
+                    <h1 class="font-bold font-kanit">Darul Hikmah</h1>
+                </div>
+            </div>
+            <ul class="hidden lg:flex items-center space-x-6 text-lg">
+                <li><a href="index.html" class="hover:text-yellow-300">Beranda</a></li>
+                <li><a href="#" class="hover:text-yellow-300">Profil</a></li>
+                <li><a href="informasi.html" class="text-yellow-300 font-bold">Informasi</a></li>
+                <li><a href="kajian.html" class="hover:text-yellow-300">Kajian</a></li>
+                <li><a href="#" class="hover:text-yellow-300">Alumni</a></li>
+            </ul>
+             <div class="hidden md:flex items-center space-x-2">
+                <input type="text" placeholder="Cari informasi..." class="bg-white text-green-900 text-center rounded-2xl border-2 border-green-700 outline-none px-4 py-1 w-64 h-10">
+                <button class="text-2xl hover:text-green-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+            <button id="btn-sidebar-info" class="text-2xl lg:hidden">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
+    </nav>
+
+    <!-- ===== KONTEN UTAMA HALAMAN INFORMASI ===== -->
+    <main class="max-w-7xl mx-auto mt-8 px-4 pb-12">
         
+        <header class="text-center py-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 font-kanit">Pusat Informasi</h1>
+            <p class="mt-4 text-lg text-gray-600">Semua pengumuman, berita, dan informasi penting dari pesantren.</p>
+        </header>
+
+        <!-- Wadah untuk semua post informasi -->
+        <div id="informasi-list" class="space-y-8">
+            <!-- Tampilan Loading -->
+            <div class="col-span-full text-center py-10">
+                <div class="w-10 h-10 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                <p class="text-gray-500 text-lg mt-4">Memuat informasi...</p>
+            </div>
+        </div> 
+
+    </main>
+    
+    <script src="informasi-script.js" type="module"></script>
+    <script type="module" src="tracker.js"></script>
 </body>
 </html>

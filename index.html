@@ -124,50 +124,31 @@
                     </section>
                 </div> <!-- Akhir Kolom Kiri -->
 
-                <!-- KOLOM KANAN: Sidebar Informasi & Kajian (1/3 dari layar) -->
-                <aside class="lg:col-span-1 mt-8 lg:mt-0">
-                    <div class="sticky top-24 space-y-8"> <!-- top-24 agar ada jarak dari navbar sticky -->
-                        <!-- Widget Kajian Terbaru -->
-                        <div class="bg-white p-6 rounded-2xl shadow-lg">
-                            <h3 class="text-xl font-bold text-gray-900">Kajian Terbaru</h3>
-                            <div class="mt-6 space-y-4">
-                                <!-- Item Kajian 1 -->
-                                <a href="#" class="block group">
-                                    <p class="text-gray-500 text-sm">18 Juni 2025</p>
-                                    <h4 class="font-semibold text-gray-800 group-hover:text-green-700">Tafsir Surat Al-Fatihah: Makna di Balik Ummul Kitab</h4>
-                                </a>
-                                <!-- Item Kajian 2 -->
-                                <a href="#" class="block group">
-                                    <p class="text-gray-500 text-sm">17 Juni 2025</p>
-                                    <h4 class="font-semibold text-gray-800 group-hover:text-green-700">Fiqih Muamalah: Prinsip Jual Beli dalam Islam</h4>
-                                </a>
-                                <!-- Item Kajian 3 -->
-                                <a href="#" class="block group">
-                                    <p class="text-gray-500 text-sm">16 Juni 2025</p>
-                                    <h4 class="font-semibold text-gray-800 group-hover:text-green-700">Kisah Teladan: Kesabaran Nabi Ayyub A.S.</h4>
-                                </a>
-                                <button class="w-full mt-4 bg-green-700 text-white py-2 rounded-lg hover:bg-green-600">Lihat Semua Kajian</button>
-                            </div>
-                        </div>
-
-                         <!-- Widget Informasi -->
-                         <div class="bg-white p-6 rounded-2xl shadow-lg">
-                            <h3 class="text-xl font-bold text-gray-900">Informasi Penting</h3>
-                             <div class="mt-6 space-y-4">
-                                <!-- Item Informasi 1 -->
-                                <a href="#" class="flex items-start space-x-4 group">
-                                    <img src="https://placehold.co/100x100/16a34a/FFFFFF?text=Info" alt="Info Pendaftaran" class="w-20 h-20 object-cover rounded-md flex-shrink-0">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-800 group-hover:text-green-700">Pendaftaran Santri Baru Tahun Ajaran 2025/2026 Dibuka!</h4>
-                                        <p class="text-gray-500 text-sm mt-1">Klik untuk melihat detail & alur pendaftaran.</p>
-                                    </div>
-                                </a>
-                             </div>
+                    <!-- KOLOM KANAN BARU: Sidebar Kajian & Informasi -->
+            <aside class="lg:col-span-1 mt-8 lg:mt-0">
+                <div class="sticky top-24 space-y-8">
+                    <!-- Widget Kajian Terbaru -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900">Kajian Terbaru</h3>
+                        <!-- Wadah ini akan diisi oleh JavaScript -->
+                        <div id="kajian-terbaru-widget" class="mt-6 space-y-4">
+                            <p class="text-sm text-gray-500">Memuat kajian terbaru...</p>
                         </div>
                     </div>
-                </aside> <!-- Akhir Kolom Kanan -->
-            </div>
-        </main>
+
+                    <!-- Widget Informasi -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900">Informasi Penting</h3>
+                        <!-- PERUBAHAN DI SINI: Wadah ini sekarang punya ID -->
+                        <div id="informasi-penting-widget" class="mt-6 space-y-4">
+                            <p class="text-sm text-gray-500">Memuat informasi...</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
         
         <!-- Sidebar dan Fitur AI ditaruh di luar main agar tidak terpengaruh layout grid -->
         <div id="sidebar" class="w-64 h-full bg-green-700 backdrop-blur-2xl text-white fixed top-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-50">
@@ -249,6 +230,8 @@
 <!-- Menghubungkan ke file JavaScript eksternal -->
 <!-- Atribut 'defer' memastikan script dijalankan setelah HTML selesai dimuat -->
 <script type="module" src="script.js"></script>
-
+<script type="module" src="scripts.js"></script>
+<script type="module" src="admin-scripts.js"></script>
+<script type="module" src="tracker.js"></script>
 </body>
 </html>
