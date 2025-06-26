@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const q = query(collection(db, "kunjungan"), orderBy("timestamp", "desc"));
 
     onSnapshot(q, (snapshot) => {
-        tabelBody.innerHTML = ''; // Kosongkan tabel sebelum diisi ulang
+        tabelBody.innerHTML = ''; 
         if (snapshot.empty) {
             tabelBody.innerHTML = '<tr><td colspan="5" class="text-center p-10 text-gray-500">Belum ada data kunjungan yang tercatat.</td></tr>';
             return;
@@ -33,32 +33,30 @@ document.addEventListener('DOMContentLoaded', function() {
         snapshot.forEach(doc => {
             const kunjungan = doc.data();
             
-            // Format data biar enak dibaca
             const waktu = kunjungan.timestamp ? new Date(kunjungan.timestamp.seconds * 1000).toLocaleString("id-ID", { dateStyle: 'medium', timeStyle: 'short' }) : 'N/A';
-            const lokasi = `${kunjungan.city || 'Tidak diketahui'}, ${kunjungan.country || ''}`;
-            const perangkat = kunjungan.deviceType || 'Tidak diketahui';
+            const lokasi = `${kunjungan.city || 'N/A'}, ${kunjungan.country || ''}`;
+            const perangkat = `${kunjungan.deviceModel || kunjungan.deviceType || 'N/A'}`;
+            const sistem = `${kunjungan.os || 'N/A'} ${kunjungan.osVersion || ''}`;
+            const browser = kunjungan.browser || 'N/A';
             const halaman = kunjungan.page || '/';
             
             const barisHTML = `
                 <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><p class="text-gray-900 whitespace-no-wrap">${waktu}</p></td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">${waktu}</p>
+                        <p class="text-gray-900 font-semibold">${kunjungan.ip || 'N/A'}</p>
+                        <p class="text-gray-600">${lokasi}</p>
                     </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><p class="text-gray-900 whitespace-no-wrap">${perangkat}</p></td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">${kunjungan.ip || 'N/A'}</p>
+                        <p class="text-gray-900 font-semibold">${sistem}</p>
+                        <p class="text-gray-600">${browser}</p>
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">${lokasi}</p>
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">${perangkat}</p>
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">${halaman}</p>
-                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><p class="text-gray-900 whitespace-no-wrap">${halaman}</p></td>
                 </tr>
             `;
             tabelBody.innerHTML += barisHTML;
         });
     });
 });
+
