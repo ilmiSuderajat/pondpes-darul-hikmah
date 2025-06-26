@@ -11,35 +11,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
-    <title>Profil Pesantren - Darul Hikmah</title>
+    <title>Detail Informasi - Pondok Pesantren Darul Hikmah</title>
     <style>
         body { font-family: 'Roboto', sans-serif; }
         .font-kanit { font-family: 'Kanit', sans-serif; }
-        /* Style untuk konten artikel yang dinamis */
-        .article-content h1, .article-content h2, .article-content h3 {
-            font-family: 'Kanit', sans-serif;
-            font-weight: 600;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: #1a202c; /* text-gray-800 */
-        }
-        .article-content p {
-            line-height: 1.75;
-            margin-bottom: 1.5rem;
-            color: #4a5568; /* text-gray-600 */
-        }
-        .article-content blockquote {
-            border-left: 4px solid #15803d;
-            padding-left: 1.5rem;
-            margin: 1.5rem 0;
-            font-style: italic;
-            color: #4b5563;
-        }
     </style>
 </head>
 <body class="bg-green-900">
 
     <!-- ===== NAVBAR ===== -->
+
    <nav class="sticky top-0 z-40 max-w-7xl mx-auto bg-white/10 backdrop-blur-md flex justify-between items-center p-4 rounded-b-2xl shadow-lg text-white">
             <!-- Strukturnya sudah diperbaiki di sini -->
             <div class="flex items-center space-x-3">
@@ -85,33 +66,27 @@
                 <li><a href="alumni.html" class="block p-3 hover:bg-gray-700 rounded">Alumni</a></li>
             </ul>
         </div>
+
     <!-- Header Halaman -->
-    <header class="h-64 bg-green-700 relative flex items-center justify-center">
-        <div class="absolute inset-0 bg-black/40"></div>
-        <div class="relative z-10 text-center">
-            <h1 id="profil-page-title" class="text-2xl md:text-6xl font-extrabold text-white font-kanit">Profil Pesantren</h1>
-            <p class="mt-4 md:text-lg text-yellow-300">Mengenal Lebih Dekat Sejarah, Visi, dan Misi Kami</p>
-        </div>
-    </header>
+    <div class="h-48 bg-green-900"></div>
 
     <!-- Wadah Konten dengan Background Putih -->
-  <div class="bg-white max-w-4xl mx-auto p-6 sm:p-8 lg:p-12 rounded-2xl shadow-2xl relative -mt-16 md:mt-10 z-10">
-        <main id="konten-profil" class="prose prose-lg max-w-none article-content">
+    <div class="bg-white max-w-4xl mx-auto p-8 sm:p-12 lg:p-16 rounded-2xl shadow-2xl relative -mt-24 z-10">
+        <main id="konten-informasi">
             <!-- Tampilan Loading -->
-            <div class="text-center py-10">
-                <div class="w-10 h-10 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                <p class="text-gray-500 text-lg mt-4">Memuat Profil Pesantren...</p>
+            <div class="text-center py-20">
+                <div class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                <p class="text-gray-500 text-lg mt-4">Memuat informasi...</p>
             </div>
         </main>
     </div>
-    <!-- Footer -->
-    <footer class="text-center py-8 text-gray-100 mt-8">
+    
+    <footer class="text-center py-8 text-gray-500 mt-8">
         <p>&copy; 2025 Pondok Pesantren Darul Hikmah. All Rights Reserved.</p>
     </footer>
-    
+
     <!-- Memanggil 'otak'-nya dari file terpisah -->
-    <script src="profil-script.js" type="module"></script>
-    <script type="module" src="tracker.js"></script>
+    <script src="detail-informasi-script.js" type="module"></script>
     <script type="module" src="script.js"></script>
 </body>
 </html>

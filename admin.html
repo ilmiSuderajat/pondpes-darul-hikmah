@@ -9,6 +9,7 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a685cbb4d0.js" crossorigin="anonymous"></script>
     <!-- TinyMCE Rich Text Editor -->
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.tiny.cloud/1/xd1jr4sn1bu6lmni6omoztnc6ciw66ea7c6qv49547hp1qtl/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <title>Admin Panel - Darul Hikmah</title>
     <style>
@@ -21,26 +22,36 @@
 </head>
 <body class="bg-gray-100 font-sans">
 
-    <div class="flex h-screen bg-gray-200">
-        <!-- Sidebar -->
-        <div class="w-64 bg-gray-800 text-white flex-shrink-0 flex flex-col">
+   <!-- PERUBAHAN DI SINI: Strukturnya sedikit diubah untuk responsif -->
+    <div class="relative min-h-screen md:flex">
+
+        <!-- Tombol Hamburger untuk Mobile -->
+        <div class="bg-gray-800 text-gray-100 flex justify-between md:hidden">
+            <a href="admin.html" class="block p-4 text-white font-bold">Admin Panel</a>
+            <button id="mobile-menu-button" class="p-4 focus:outline-none focus:bg-gray-700">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigasi Admin -->
+        <!-- Diberi ID dan diatur posisinya untuk mobile -->
+        <div id="sidebar-admin" class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-20">
             <div class="px-6 py-6 border-b border-gray-700">
                 <h1 class="text-xl font-bold">Admin Panel</h1>
                 <p class="text-sm text-gray-400">Darul Hikmah</p>
             </div>
-            <nav id="sidebar-nav" class="flex-grow overflow-y-auto">
+            <nav id="sidebar-nav" class="flex-grow">
                 <a href="#" class="sidebar-link block px-6 py-4 hover:bg-gray-700" data-page="page-dashboard"><i class="fas fa-tachometer-alt fa-fw mr-3"></i> Dashboard</a>
                 <a href="#" class="sidebar-link block px-6 py-4 hover:bg-gray-700" data-page="page-kajian"><i class="fas fa-book-open fa-fw mr-3"></i> Manajemen Kajian</a>
                 <a href="#" class="sidebar-link block px-6 py-4 hover:bg-gray-700" data-page="page-informasi"><i class="fas fa-bullhorn fa-fw mr-3"></i> Kelola Informasi</a>
                 <a href="#" class="sidebar-link block px-6 py-4 hover:bg-gray-700" data-page="page-profil"><i class="fas fa-id-card fa-fw mr-3"></i> Edit Halaman Profil</a>
                 <a href="dashboard.html" target="_blank" class="sidebar-link block px-6 py-4 hover:bg-gray-700"><i class="fas fa-archive fa-fw mr-3"></i> Arsip Kunjungan</a>
-                <a href="#" class="sidebar-link block px-6 py-4 hover:bg-gray-700" data-page="page-pengaturan"><i class="fas fa-cog fa-fw mr-3"></i> Pengaturan</a>
             </nav>
             <div class="px-6 py-4 border-t border-gray-700">
-                <a href="#" class="block text-red-400 hover:text-red-300"><i class="fas fa-sign-out-alt fa-fw mr-3"></i> Logout</a>
+                <!-- Tombol Logout diberi ID -->
+                <a href="#" id="logout-btn" class="block text-red-400 hover:text-red-300"><i class="fas fa-sign-out-alt fa-fw mr-3"></i> Logout</a>
             </div>
         </div>
-
         <!-- Konten Utama -->
          
         <div class="flex-1 flex flex-col overflow-hidden">
@@ -251,5 +262,6 @@
     </div>
     
     <script src="admin-scripts.js" type="module" ></script>
+    <script type="module" src="auth-guard.js"></script>
 </body>
 </html>

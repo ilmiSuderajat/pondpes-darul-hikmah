@@ -19,43 +19,69 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 document.addEventListener('DOMContentLoaded', function() {
-    const tabelBody = document.getElementById('tabel-arsip-body');
-    if (!tabelBody) return;
+    const listContainer = document.getElementById('arsip-list-container');
+    if (!listContainer) return;
 
     const q = query(collection(db, "kunjungan"), orderBy("timestamp", "desc"));
 
     onSnapshot(q, (snapshot) => {
-        tabelBody.innerHTML = ''; 
+        // Hapus loading state atau isi sebelumnya
+        listContainer.innerHTML = ''; 
         if (snapshot.empty) {
-            tabelBody.innerHTML = '<tr><td colspan="5" class="text-center p-10 text-gray-500">Belum ada data kunjungan yang tercatat.</td></tr>';
+            listContainer.innerHTML = '<div class="bg-white p-10 text-center text-gray-500">Belum ada data kunjungan yang tercatat.</div>';
             return;
         }
+        
         snapshot.forEach(doc => {
             const kunjungan = doc.data();
             
+            // Format data biar enak dibaca
             const waktu = kunjungan.timestamp ? new Date(kunjungan.timestamp.seconds * 1000).toLocaleString("id-ID", { dateStyle: 'medium', timeStyle: 'short' }) : 'N/A';
-            const lokasi = `${kunjungan.city || 'N/A'}, ${kunjungan.country || ''}`;
+            const lokasi = `${kunjungan.city || 'Tidak diketahui'}, ${kunjungan.country || ''}`;
             const perangkat = `${kunjungan.deviceModel || kunjungan.deviceType || 'N/A'}`;
             const sistem = `${kunjungan.os || 'N/A'} ${kunjungan.osVersion || ''}`;
             const browser = kunjungan.browser || 'N/A';
             const halaman = kunjungan.page || '/';
             
-            const barisHTML = `
-                <tr>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><p class="text-gray-900 whitespace-no-wrap">${waktu}</p></td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            // Buat HTML untuk setiap item
+            // Strukturnya bisa jadi kartu di mobile dan baris tabel di desktop
+            const itemHTML = `
+                <div class="bg-white p-4 border-b border-gray-200 md:grid md:grid-cols-5 md:gap-4 md:p-5 md:items-center">
+                    
+                    <!-- Kolom 1: Waktu Kunjungan -->
+                    <div class="mb-2 md:mb-0">
+                        <p class="font-bold text-sm text-gray-500 md:hidden">Waktu:</p>
+                        <p class="text-gray-900 text-sm">${waktu}</p>
+                    </div>
+
+                    <!-- Kolom 2: IP & Lokasi -->
+                    <div class="mb-2 md:mb-0">
+                        <p class="font-bold text-sm text-gray-500 md:hidden">Lokasi:</p>
                         <p class="text-gray-900 font-semibold">${kunjungan.ip || 'N/A'}</p>
-                        <p class="text-gray-600">${lokasi}</p>
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><p class="text-gray-900 whitespace-no-wrap">${perangkat}</p></td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 font-semibold">${sistem}</p>
-                        <p class="text-gray-600">${browser}</p>
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><p class="text-gray-900 whitespace-no-wrap">${halaman}</p></td>
-                </tr>
+                        <p class="text-gray-600 text-sm">${lokasi}</p>
+                    </div>
+
+                    <!-- Kolom 3: Perangkat -->
+                    <div class="mb-2 md:mb-0">
+                        <p class="font-bold text-sm text-gray-500 md:hidden">Perangkat:</p>
+                        <p class="text-gray-900 text-sm">${perangkat}</p>
+                    </div>
+
+                    <!-- Kolom 4: Sistem & Browser -->
+                    <div class="mb-2 md:mb-0">
+                        <p class="font-bold text-sm text-gray-500 md:hidden">Sistem:</p>
+                        <p class="text-gray-900 font-semibold text-sm">${sistem}</p>
+                        <p class="text-gray-600 text-sm">${browser}</p>
+                    </div>
+
+                    <!-- Kolom 5: Halaman -->
+                    <div class="mb-2 md:mb-0">
+                        <p class="font-bold text-sm text-gray-500 md:hidden">Halaman:</p>
+                        <p class="text-gray-900 break-words text-sm">${halaman}</p>
+                    </div>
+                </div>
             `;
-            tabelBody.innerHTML += barisHTML;
+            listContainer.innerHTML += itemHTML;
         });
     });
 });

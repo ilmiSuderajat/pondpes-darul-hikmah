@@ -27,34 +27,61 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- NAVIGASI UTAMA PANEL ADMIN ---
-            const pageTitle = document.getElementById('page-title');
-            const sidebarLinks = document.querySelectorAll('.sidebar-link');
-            const adminPages = document.querySelectorAll('.admin-page');
-            
-            function showPage(pageId) {
-                adminPages.forEach(page => page.classList.add('hidden'));
-                sidebarLinks.forEach(link => link.classList.remove('active'));
-                const targetPage = document.getElementById(pageId);
-                const targetLink = document.querySelector(`[data-page='${pageId}']`);
-                if(targetPage && targetLink) {
-                    targetPage.classList.remove('hidden');
-                    pageTitle.textContent = targetLink.textContent.trim();
-                    targetLink.classList.add('active');
-                }
+            // --- LOGIKA UNTUK NAVBAR RESPONSIVE & LOGOUT ---
+            // --- LOGIKA UNTUK NAVBAR RESPONSIVE & LOGOUT ---
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const sidebarAdmin = document.getElementById('sidebar-admin');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (mobileMenuButton && sidebarAdmin) {
+        mobileMenuButton.addEventListener('click', () => {
+            sidebarAdmin.classList.toggle('-translate-x-full');
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                // Sekarang fungsi signOut sudah dikenali
+                await signOut(auth);
+                console.log('User signed out');
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Sign out error', error);
+                alert('Gagal untuk logout, coba lagi.');
             }
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', e => {
-                    // PERUBAHAN DI SINI: Cek dulu apakah linknya punya 'data-page'
-                    if (link.dataset.page) {
-                        // Kalau punya, baru kita cegah dan ganti konten
-                        e.preventDefault();
-                        showPage(link.dataset.page);
-                    }
-                    // Kalau tidak punya 'data-page', biarkan dia berfungsi normal (membuka link href)
-                });
+        });
+    }
+
+        // --- NAVIGASI UTAMA PANEL ADMIN ---
+        const pageTitle = document.getElementById('page-title');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const adminPages = document.querySelectorAll('.admin-page');
+        
+        function showPage(pageId) {
+            adminPages.forEach(page => page.classList.add('hidden'));
+            sidebarLinks.forEach(link => link.classList.remove('active'));
+            const targetPage = document.getElementById(pageId);
+            const targetLink = document.querySelector(`[data-page='${pageId}']`);
+            if(targetPage && targetLink) {
+                targetPage.classList.remove('hidden');
+                pageTitle.textContent = targetLink.textContent.trim();
+                targetLink.classList.add('active');
+            }
+        }
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', e => {
+                // PERUBAHAN DI SINI: Cek dulu apakah linknya punya 'data-page'
+                if (link.dataset.page) {
+                    // Kalau punya, baru kita cegah dan ganti konten
+                    e.preventDefault();
+                    showPage(link.dataset.page);
+                }
+                // Kalau tidak punya 'data-page', biarkan dia berfungsi normal (membuka link href)
             });
-            showPage('page-dashboard');
+        });
+        showPage('page-dashboard');
 
             // =======================================================
             // --- DEPARTEMEN MANAJEMEN KAJIAN ---

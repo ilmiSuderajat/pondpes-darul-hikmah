@@ -18,9 +18,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+
 // Fungsi utama yang dijalankan saat halaman selesai dimuat
 document.addEventListener('DOMContentLoaded', async function() {
-    const informasiList = document.getElementById('informasi-list');
+    const informasiGrid = document.getElementById('informasi-grid');
+    if (!informasiGrid) return;
     
     try {
         // 1. Buat query untuk mengambil data dari koleksi 'informasi', diurutkan berdasarkan yang terbaru
@@ -29,11 +31,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         // 2. Jalankan query untuk mendapatkan semua dokumen
         const querySnapshot = await getDocs(q);
         
-        informasiList.innerHTML = ''; // Kosongkan tulisan "Memuat..."
+        informasiGrid.innerHTML = ''; // Kosongkan tulisan "Memuat..."
 
         // Cek jika tidak ada informasi sama sekali
         if (querySnapshot.empty) {
-            informasiList.innerHTML = '<p class="text-center text-gray-500">Belum ada informasi yang dipublikasikan.</p>';
+            informasiGrid.innerHTML = '<p class="col-span-full text-center text-gray-500">Belum ada informasi yang dipublikasikan.</p>';
             return;
         }
         
@@ -42,37 +44,37 @@ document.addEventListener('DOMContentLoaded', async function() {
             const info = doc.data();
             const tanggal = info.createdAt ? new Date(info.createdAt.seconds * 1000).toLocaleDateString("id-ID") : 'N/A';
             
-            // 4. Buat HTML untuk setiap item informasi
-            const itemHTML = `
-                <article class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row group">
-                    <div class="md:w-1/3">
-                         <a href="${info.link || '#'}" target="_blank" class="block h-full">
-                            <img src="${info.gambar}" alt="Gambar untuk ${info.judul}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300">
-                        </a>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow md:w-2/3">
-                        <div>
-                            <p class="text-sm text-gray-500">${tanggal}</p>
-                            <a href="${info.link || '#'}" target="_blank" class="block mt-2">
-                                <h3 class="text-2xl font-bold text-gray-900 group-hover:text-green-600">${info.judul}</h3>
+            // PERUBAHAN DI SINI: Link sekarang mengarah ke detail-informasi.html dengan ID yang benar
+            const linkTujuan = `detail-informasi.html?id=${doc.id}`;
+
+            const kartuHTML = `
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col group">
+                    <a href="${linkTujuan}" class="block">
+                        <img src="${info.gambar}" alt="Gambar untuk ${info.judul}" class="w-full h-56 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                    </a>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex-grow">
+                            <p class="text-sm text-blue-700 font-semibold">Pengumuman</p>
+                            <a href="${linkTujuan}" class="block mt-2">
+                                <h3 class="text-2xl font-bold text-gray-900 group-hover:text-blue-600">${info.judul}</h3>
                             </a>
                             <p class="mt-3 text-base text-gray-600">
                                ${info.deskripsi}
                             </p>
                         </div>
-                        <div class="mt-6">
-                           <a href="${info.link || '#'}" target="_blank" class="text-green-700 font-semibold hover:underline">
-                                Selengkapnya <i class="fas fa-arrow-right ml-1"></i>
-                           </a>
+                        <div class="mt-6 flex items-center justify-between text-sm text-gray-500">
+                           <span>${tanggal}</span>
+                           <span class="font-semibold text-blue-600 group-hover:underline">Baca Selengkapnya &rarr;</span>
                         </div>
                     </div>
                 </article>
             `;
-            // 5. Tambahkan item ke dalam daftar
-            informasiList.innerHTML += itemHTML;
+            // 4. Tambahkan kartu ke dalam grid
+            informasiGrid.innerHTML += kartuHTML;
         });
     } catch (error) {
         console.error("Error mengambil data informasi: ", error);
-        informasiList.innerHTML = '<p class="text-center text-red-500">Gagal memuat data informasi. Coba lagi nanti.</p>';
+        informasiGrid.innerHTML = '<p class="col-span-full text-center text-red-500">Gagal memuat data informasi. Coba lagi nanti.</p>';
     }
 });
+

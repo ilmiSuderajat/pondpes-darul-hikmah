@@ -47,18 +47,25 @@
                         <li><a href="kajian.html" class="hover:text-yellow-300">Kajian</a></li>
                         <li><a href="alumni.html" class="hover:text-yellow-300">Alumni</a></li>
                     </ul>
-
-                    <div class="hidden md:flex items-center space-x-2">
-                        <input type="text" placeholder="Search" class="bg-white text-green-900 text-center rounded-2xl border-2 border-green-700 outline-none px-4 py-1 w-64 h-10">
-                        <button class="text-2xl hover:text-green-400">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
-                    
-                    <button id="btn-sidebar" class="text-2xl lg:hidden">
-                        <i class="fa-solid fa-bars"></i>
+                      <div class="hidden lg:flex items-center space-x-4">
+                <!-- Search Bar -->
+                <div class="hidden md:flex items-center space-x-2">
+                    <input type="text" placeholder="Cari..." class="bg-white/80 text-white placeholder-gray-300 text-center rounded-full border-2 border-transparent focus:border-yellow-400 outline-none px-4 py-1 w-48 h-10 transition-all duration-300 focus:w-64">
+                    <button class="text-2xl hover:text-yellow-300">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
+                <!-- Tombol Login Baru -->
+                <a href="login.html" class="bg-yellow-400 text-green-900 font-bold py-2 px-5 rounded-lg hover:bg-yellow-300 transition-colors">
+                    Login
+                </a>
+            </div>
+
+            <!-- Tombol Hamburger untuk Mobile -->
+            <button id="btn-sidebar" class="text-2xl lg:hidden">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
            </nav>
 
         <main class="max-w-7xl mx-auto mt-4 px-4">
@@ -164,6 +171,9 @@
                 <li><a href="informasi.html" class="block p-3 hover:bg-gray-700 rounded">Informasi</a></li>
                 <li><a href="kajian.html" class="block p-3 hover:bg-gray-700 rounded">Kajian</a></li>
                 <li><a href="alumni.html" class="block p-3 hover:bg-gray-700 rounded">Alumni</a></li>
+                 <a href="login.html" class="bg-yellow-400 text-green-900 font-bold py-2 px-5 rounded-lg hover:bg-yellow-300 transition-colors">
+                    Login
+                </a>
             </ul>
         </div>
         

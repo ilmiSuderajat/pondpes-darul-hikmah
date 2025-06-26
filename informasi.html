@@ -17,58 +17,78 @@
         .font-kanit { font-family: 'Kanit', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-green-900 ">
 
     <!-- ===== NAVBAR ===== -->
-    <!-- (Salin navbar dari halaman utama untuk konsistensi) -->
-    <nav class="sticky top-0 z-40 bg-white/10 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex justify-between items-center p-4 text-white shadow-lg">
-             <div class="flex items-center space-x-3">
-                <img class="w-12 h-12 object-contain" src="https://placehold.co/100x100/FFFFFF/166534?text=DH" alt="Logo">
+   <nav class="sticky top-0 z-40 max-w-7xl mx-auto bg-white/10 backdrop-blur-md flex justify-between items-center p-4 rounded-b-2xl shadow-lg text-white">
+            <!-- Strukturnya sudah diperbaiki di sini -->
+            <div class="flex items-center space-x-3">
+                <img class="w-12 h-12 object-contain" src="logo.png" alt="Logo">
                 <div class="leading-tight text-sm space-y-0.5">
                     <h1 class="font-semibold">Pondok Pesantren</h1>
-                    <h1 class="font-bold font-kanit">Darul Hikmah</h1>
+                    <h1 class="font-bold">Darul Hikmah</h1>
+                    <p>Kronjo-Tangerang-Banten</p>
                 </div>
             </div>
-            <ul class="hidden lg:flex items-center space-x-6 text-lg">
-                <li><a href="index.html" class="hover:text-yellow-300">Beranda</a></li>
-                <li><a href="#" class="hover:text-yellow-300">Profil</a></li>
-                <li><a href="informasi.html" class="text-yellow-300 font-bold">Informasi</a></li>
-                <li><a href="kajian.html" class="hover:text-yellow-300">Kajian</a></li>
-                <li><a href="#" class="hover:text-yellow-300">Alumni</a></li>
-            </ul>
-             <div class="hidden md:flex items-center space-x-2">
-                <input type="text" placeholder="Cari informasi..." class="bg-white text-green-900 text-center rounded-2xl border-2 border-green-700 outline-none px-4 py-1 w-64 h-10">
-                <button class="text-2xl hover:text-green-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-            <button id="btn-sidebar-info" class="text-2xl lg:hidden">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-    </nav>
+                    <ul class="hidden lg:flex items-center space-x-6 text-lg">
+                        <li><a href="index.html" class="hover:text-yellow-300">Beranda</a></li>
+                        <li><a href="profil.html" class="hover:text-yellow-300">Profil</a></li>
+                        <li><a href="informasi.html" class="hover:text-yellow-300">Informasi</a></li>
+                        <li><a href="kajian.html" class="hover:text-yellow-300">Kajian</a></li>
+                        <li><a href="alumni.html" class="hover:text-yellow-300">Alumni</a></li>
+                    </ul>
 
+                    <div class="hidden md:flex items-center space-x-2">
+                        <input type="text" placeholder="Search" class="bg-white text-green-900 text-center rounded-2xl border-2 border-green-700 outline-none px-4 py-1 w-64 h-10">
+                        <button class="text-2xl hover:text-green-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    
+                    <button id="btn-sidebar" class="text-2xl lg:hidden">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+           </nav>
+            <div id="sidebar" class="w-64 h-full bg-green-700 backdrop-blur-2xl text-white fixed top-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="p-4 flex justify-between items-center">
+                <h2 class="font-bold text-xl">Menu</h2>
+                <button id="btn-close" class="text-2xl"><i class="fa-solid fa-x"></i></button>
+            </div>
+            <ul class="flex flex-col p-4 space-y-2">
+                <div class="flex mb-4"><input class="w-full h-8 bg-white text-black outline-0 text-center rounded-l-md" type="text" placeholder="Search"><button class="bg-green-500 px-3 rounded-r-md"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <li><a href="index.html" class="block p-3 hover:bg-gray-700 rounded">Beranda</a></li>
+                <li><a href="profil.html" class="block p-3 hover:bg-gray-700 rounded">Profil</a></li>
+                <li><a href="informasi.html" class="block p-3 hover:bg-gray-700 rounded">Informasi</a></li>
+                <li><a href="kajian.html" class="block p-3 hover:bg-gray-700 rounded">Kajian</a></li>
+                <li><a href="alumni.html" class="block p-3 hover:bg-gray-700 rounded">Alumni</a></li>
+            </ul>
+        </div>
     <!-- ===== KONTEN UTAMA HALAMAN INFORMASI ===== -->
+   <!-- ===== KONTEN UTAMA HALAMAN INFORMASI ===== -->
     <main class="max-w-7xl mx-auto mt-8 px-4 pb-12">
         
         <header class="text-center py-8">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 font-kanit">Pusat Informasi</h1>
-            <p class="mt-4 text-lg text-gray-600">Semua pengumuman, berita, dan informasi penting dari pesantren.</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-100 font-kanit">Pusat Informasi</h1>
+            <p class="mt-4 text-lg text-gray-100">Semua pengumuman, berita, dan informasi penting dari pesantren.</p>
         </header>
 
-        <!-- Wadah untuk semua post informasi -->
-        <div id="informasi-list" class="space-y-8">
-            <!-- Tampilan Loading -->
-            <div class="col-span-full text-center py-10">
-                <div class="w-10 h-10 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                <p class="text-gray-500 text-lg mt-4">Memuat informasi...</p>
+        <!-- Wadah untuk semua post informasi, layoutnya mirip kajian.html -->
+        <div id="informasi-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Tampilan Loading Awal -->
+            <div class="col-span-full text-center py-20">
+                <div class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                <p class="text-gray-500 text-lg mt-4">Memuat semua informasi...</p>
             </div>
-        </div> 
+            
+        </div> <!-- Akhir dari wadah grid post -->
 
     </main>
     
     <script src="informasi-script.js" type="module"></script>
     <script type="module" src="tracker.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
