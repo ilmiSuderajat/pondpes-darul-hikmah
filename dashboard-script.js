@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const vpnClass = data.isVPN ? 'text-yellow-600 font-bold' : 'text-green-600';
       const webglRenderer = data.webglRenderer ? data.webglRenderer.substring(0, 30) + '...' : 'N/A';
       const webglVendor = data.webglVendor ? data.webglVendor.substring(0, 30) + '...' : 'N/A';
-      const canvasFingerprint = data.canvasFingerprint ? (data.canvasFingerprint.length > 30 ? data.canvasFingerprint.substring(0,30)+'...' : data.canvasFingerprint) : 'N/A';
+      // Ambil hash canvas fingerprint, tampilkan rapi
+      const canvasFingerprintHash = data.canvasFingerprintHash || 'N/A';
       const deviceMemory = data.deviceMemory || 'N/A';
 
       const itemHTML = `
@@ -115,10 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="text-gray-600 text-xs" title="${data.webglVendor || ''}">${webglVendor}</p>
         </div>
 
-        <!-- Canvas Fingerprint -->
+        <!-- Canvas Fingerprint Hash -->
         <div class="mb-3 md:mb-0 break-all max-w-[150px]">
-          <p class="font-bold text-gray-500 md:hidden">Canvas Fingerprint</p>
-          <p class="text-xs md:text-sm">${canvasFingerprint}</p>
+          <p class="font-bold text-gray-500 md:hidden">Canvas Fingerprint Hash</p>
+          <p class="text-xs md:text-sm font-mono">${canvasFingerprintHash}</p>
         </div>
 
         <!-- Device Memory -->
