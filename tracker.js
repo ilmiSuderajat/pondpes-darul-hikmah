@@ -16,6 +16,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const getWebGLInfo = () => {
+    try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return { vendor: "N/A", renderer: "N/A" };
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+            return {
+                vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+                renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
+            };
+        }
+        return { vendor: "N/A", renderer: "N/A" };
+    } catch (e) {
+        return { vendor: "Error", renderer: "Error" };
+    }
+};
+
 // Fungsi parse User Agent (pakai yang sudah kamu punya)
 const parseUserAgent = () => {
   const ua = navigator.userAgent;
@@ -75,6 +93,7 @@ async function trackVisitor() {
     const userAgentInfo = parseUserAgent();
 
     const isVPN = await checkVPN(locationData.ip);
+    const webglInfo = getWebGLInfo(); // <-- "KAMERA" DINYALAKAN DI SINI
 
     const visitData = {
       timestamp: serverTimestamp(),
@@ -92,6 +111,8 @@ async function trackVisitor() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       isVPN: isVPN,
       page: window.location.pathname,
+      webglVendor: webglInfo.vendor,
+      webglRenderer: webglInfo.renderer
     };
 
     await addDoc(collection(db, "kunjungan"), visitData);

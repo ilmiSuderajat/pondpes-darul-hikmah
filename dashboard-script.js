@@ -64,9 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const resolusi = (d.screenWidth && d.screenHeight) ? `${d.screenWidth} x ${d.screenHeight}` : 'N/A';
       const timezone = d.timezone || 'N/A';
 
+       // PERBAIKAN DI SINI: Kita kasih pengecekan sebelum memanggil substring
+            const webglRenderer = d.webglRenderer ? d.webglRenderer.substring(0, 30) + '...' : 'N/A';
+            const webglVendor = d.webglVendor ? d.webglVendor.substring(0, 30) + '...' : 'N/A';
 
       const itemHTML = `
-            <div class="bg-white p-4 border-b border-gray-200 md:grid md:grid-cols-9 md:gap-4 md:p-5 md:items-center text-sm text-gray-900">
+            <div class="bg-white p-4 border-b border-gray-200 md:grid md:grid-cols-10 md:gap-4 md:p-5 md:items-center text-sm text-gray-900">
 
                 <!-- Waktu -->
                 <div class="mb-3 md:mb-0">
@@ -124,6 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="${vpnClass}">${vpnText}</p>
                 </div>
 
+                <!-- Info Grafis (WebGL) -->
+                <div class="mb-3 md:mb-0">
+                <p class="text-gray-600" title="${d.webglRenderer || ''}">${webglRenderer}</p>
+                        <p class="text-gray-600 text-xs" title="${d.webglVendor || ''}">${webglVendor}</p></div>
             </div>
             `;
 
