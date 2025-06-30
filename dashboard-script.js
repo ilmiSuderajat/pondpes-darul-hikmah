@@ -130,7 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <!-- Info Grafis (WebGL) -->
                 <div class="mb-3 md:mb-0">
                 <p class="text-gray-600" title="${d.webglRenderer || ''}">${webglRenderer}</p>
-                        <p class="text-gray-600 text-xs" title="${d.webglVendor || ''}">${webglVendor}</p></div>
+                <p class="text-gray-600 text-xs" title="${d.webglVendor || ''}">${webglVendor}</p>
+                </div>
             </div>
             `;
 
