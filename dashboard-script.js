@@ -148,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   <p class="text-gray-600">Memori: ${deviceMemory}</p>
                 </div>
 
+                
+
             </div>
             `;
 
