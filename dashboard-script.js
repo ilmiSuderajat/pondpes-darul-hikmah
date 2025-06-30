@@ -64,12 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const resolusi = (d.screenWidth && d.screenHeight) ? `${d.screenWidth} x ${d.screenHeight}` : 'N/A';
       const timezone = d.timezone || 'N/A';
 
-       // PERUBAHAN DI SINI: Ambil data WebGL
-            const webglVendor = d.webglVendor || 'N/A';
-            const webglRenderer = d.webglRenderer || 'N/A';
 
       const itemHTML = `
-            <div class="bg-white p-4 border-b border-gray-200 md:grid md:grid-cols-10 md:gap-4 md:p-5 md:items-center text-sm text-gray-900">
+            <div class="bg-white p-4 border-b border-gray-200 md:grid md:grid-cols-9 md:gap-4 md:p-5 md:items-center text-sm text-gray-900">
 
                 <!-- Waktu -->
                 <div class="mb-3 md:mb-0">
@@ -125,12 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="mb-3 md:mb-0">
                 <p class="font-bold text-gray-500 md:hidden">VPN</p>
                 <p class="${vpnClass}">${vpnText}</p>
-                </div>
-
-                <!-- webGL -->
-                <div class="mb-3 md:mb-0">
-                <p class="text-gray-900 font-semibold" title="${webglRenderer}">Renderer: ${webglRenderer.substring(0, 30)}...</p>
-                <p class="text-gray-600" title="${webglVendor}">Vendor: ${webglVendor.substring(0, 30)}...</p>
                 </div>
 
             </div>
