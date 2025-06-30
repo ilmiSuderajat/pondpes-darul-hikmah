@@ -67,9 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
        // PERBAIKAN DI SINI: Kita kasih pengecekan sebelum memanggil substring
             const webglRenderer = d.webglRenderer ? d.webglRenderer.substring(0, 30) + '...' : 'N/A';
             const webglVendor = d.webglVendor ? d.webglVendor.substring(0, 30) + '...' : 'N/A';
+            const canvasFP = d.canvasFingerprint ? 'Terdeteksi' : 'Tidak';
+            const coreCount = d.hardwareConcurrency || 'N/A';
+            const deviceMemory = d.deviceMemory ? `${d.deviceMemory} GB` : 'N/A';
+
 
       const itemHTML = `
-            <div class="bg-white p-4 border-b border-gray-200 md:grid md:grid-cols-10 md:gap-4 md:p-5 md:items-center text-sm text-gray-900">
+            <div class="bg-white p-4 border-b border-gray-200 md:grid md:grid-cols-12 md:gap-4 md:p-5 md:items-center text-sm text-gray-900">
 
                 <!-- Waktu -->
                 <div class="mb-3 md:mb-0">
@@ -132,6 +136,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="text-gray-600" title="${d.webglRenderer || ''}">${webglRenderer}</p>
                 <p class="text-gray-600 text-xs" title="${d.webglVendor || ''}">${webglVendor}</p>
                 </div>
+
+                <!-- Fingerprint -->
+                <div class="mb-3 md:mb-0">
+                <p class="text-gray-600">Canvas: ${canvasFP}</p>
+                <p class="text-gray-600 text-xs">Cores: ${coreCount}</p>
+                </div>
+
+                <!-- Memori Perangkat -->
+                <div class="mb-3 md:mb-0">
+                  <p class="text-gray-600">Memori: ${deviceMemory}</p>
+                </div>
+
             </div>
             `;
 

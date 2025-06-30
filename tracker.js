@@ -16,43 +16,49 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const getCanvasFingerprint = () => {
-    try {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const txt = 'DarulHikmah.com <canvas> 1.0';
-        ctx.textBaseline = "top";
-        ctx.font = "14px 'Arial'";
-        ctx.textBaseline = "alphabetic";
-        ctx.fillStyle = "#f60";
-        ctx.fillRect(125, 1, 62, 20);
-        ctx.fillStyle = "#069";
-        ctx.fillText(txt, 2, 15);
-        ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
-        ctx.fillText(txt, 4, 17);
-        return canvas.toDataURL();
-    } catch (e) {
-        return "Error";
-    }
-};
+// Ambil WebGL fingerprint
+function getWebGLFingerprint() {
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return { webglVendor: 'Unknown', webglRenderer: 'Unknown' };
 
-const getWebGLInfo = () => {
-    try {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (!gl) return { vendor: "N/A", renderer: "N/A" };
-        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        if (debugInfo) {
-            return {
-                vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
-                renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
-            };
-        }
-        return { vendor: "N/A", renderer: "N/A" };
-    } catch (e) {
-        return { vendor: "Error", renderer: "Error" };
-    }
-};
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    const vendor = debugInfo ? gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) : 'Unknown';
+    const renderer = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'Unknown';
+
+    return { webglVendor: vendor, webglRenderer: renderer };
+  } catch {
+    return { webglVendor: 'Error', webglRenderer: 'Error' };
+  }
+}
+
+// Ambil canvas fingerprint (hash data URL)
+function getCanvasFingerprint() {
+  try {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.textBaseline = 'top';
+    ctx.font = '14px Arial';
+    ctx.fillStyle = '#f60';
+    ctx.fillRect(125, 1, 62, 20);
+    ctx.fillStyle = '#069';
+    ctx.fillText('darul-hikmah', 2, 15);
+    return canvas.toDataURL();
+  } catch {
+    return 'error';
+  }
+}
+
+// Tambahan fingerprint
+const webglData = getWebGLFingerprint();
+const canvasData = getCanvasFingerprint();
+const cpuCores = navigator.hardwareConcurrency || 'Unknown';
+const deviceMemory = navigator.deviceMemory || 'Unknown';
+
+
+// Kirim data ini bersama data IP, screen, dll ke Firebase
+
 
 // Fungsi parse User Agent (pakai yang sudah kamu punya)
 const parseUserAgent = () => {
@@ -131,11 +137,10 @@ async function trackVisitor() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       isVPN: isVPN,
       page: window.location.pathname,
-      webglVendor: webglInfo.vendor,
-      webglRenderer: webglInfo.renderer,
-      canvasFingerprint: canvasFingerprint,
-      hardwareConcurrency: navigator.hardwareConcurrency || 'N/A',
-      page: window.location.pathname,
+      webglRenderer: webglData.webglRenderer,
+      canvasFingerprint: canvasData,
+      cpuCores: cpuCores,
+      deviceMemory: deviceMemory,
     };
 
     await addDoc(collection(db, "kunjungan"), visitData);
