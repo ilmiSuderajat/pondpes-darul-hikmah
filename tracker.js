@@ -17,7 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// --- FUNGSI BARU UNTUK MENDAPATKAN SIDIK JARI WEBGL ---
+// --- FUNGSI-FUNGSI PENDETEKSI ---
 const getWebGLInfo = () => {
     try {
         const canvas = document.createElement('canvas');
@@ -36,11 +36,10 @@ const getWebGLInfo = () => {
         return { vendor: "Error", renderer: "Error" };
     }
 };
-// --- FUNGSI PENDETEKSI PERANGKAT (LENGKAP) ---
+
 const parseUserAgent = () => {
     const ua = navigator.userAgent;
     let browser = "Lainnya", os = "Lainnya", osVersion = "", deviceModel = "";
-
     if (/android/i.test(ua)) {
         os = "Android";
         const androidVersionMatch = ua.match(/android\s([0-9\.]+)/i);
@@ -59,7 +58,6 @@ const parseUserAgent = () => {
     else if (/edg/i.test(ua)) browser = "Edge";
     else if (/chrome/i.test(ua) && !/edg/i.test(ua)) browser = "Chrome";
     else if (/safari/i.test(ua) && !/chrome/i.test(ua)) browser = "Safari";
-    
     return { browser, os, osVersion, deviceModel };
 };
 
@@ -70,12 +68,10 @@ const getDeviceType = () => {
     return "Desktop";
 };
 
-// Fungsi utama untuk melacak pengunjung
 async function trackVisitor() {
     try {
-        if (sessionStorage.getItem('visitorTracked_v2')) return;
+        if (sessionStorage.getItem('visitorTracked_v4')) return;
 
-        // Cukup satu API call ke ip-api.com untuk semua data
         const response = await fetch('http://ip-api.com/json/?fields=status,message,country,city,query,isp,proxy');
         if (!response.ok) return;
         
@@ -83,6 +79,7 @@ async function trackVisitor() {
         if (ipData.status !== 'success') return;
 
         const userAgentInfo = parseUserAgent();
+        const webglInfo = getWebGLInfo(); // <-- "KAMERA" DINYALAKAN DI SINI
         
         const visitData = {
             timestamp: serverTimestamp(),
@@ -96,15 +93,19 @@ async function trackVisitor() {
             os: userAgentInfo.os,
             osVersion: userAgentInfo.osVersion,
             deviceModel: userAgentInfo.deviceModel,
+            dpr: window.devicePixelRatio || 'N/A',
             screenWidth: window.screen.width,
             screenHeight: window.screen.height,
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             page: window.location.pathname,
+            // <-- "LACI" BARU UNTUK MENYIMPAN HASIL REKAMAN
+            webglVendor: webglInfo.vendor,
+            webglRenderer: webglInfo.renderer
         };
         
         await addDoc(collection(db, "kunjungan"), visitData);
-        sessionStorage.setItem('visitorTracked_v2', 'true');
-        console.log("Kunjungan (Lengkap) berhasil dicatat:", visitData);
+        sessionStorage.setItem('visitorTracked_v4', 'true');
+        console.log("Kunjungan (dengan WebGL) berhasil dicatat:", visitData);
 
     } catch (error) {
         console.error("Gagal melacak pengunjung:", error);
