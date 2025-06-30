@@ -107,6 +107,16 @@ async function checkVPN(ip) {
   }
 }
 
+// Fungsi hashing SHA-256 untuk canvas fingerprint
+async function hashCanvasFingerprint(dataUrl) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(dataUrl);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
 // Fungsi utama tracking visitor
 async function trackVisitor() {
   try {
@@ -117,10 +127,11 @@ async function trackVisitor() {
 
     const locationData = await response.json();
     const userAgentInfo = parseUserAgent();
-
+     // Ambil canvas fingerprint (data URL)
+    const canvasDataUrl = getCanvasFingerprint();
+    // Hash canvas fingerprint-nya dulu
+    const canvasHash = await hashCanvasFingerprint(canvasDataUrl);
     const isVPN = await checkVPN(locationData.ip);
-    const webglInfo = getWebGLInfo(); // <-- "KAMERA" DINYALAKAN DI SINI
-    const canvasFingerprint = getCanvasFingerprint(); // Ambil data Canvas
     const visitData = {
       timestamp: serverTimestamp(),
       deviceType: getDeviceType(),
@@ -140,6 +151,7 @@ async function trackVisitor() {
       webglRenderer: webglData.webglRenderer,
       canvasFingerprint: canvasData,
       cpuCores: cpuCores,
+      canvasFingerprintHash: canvasHash,  // simpan hash di sini
       deviceMemory: deviceMemory,
     };
 
