@@ -16,6 +16,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const getCanvasFingerprint = () => {
+    try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const txt = 'DarulHikmah.com <canvas> 1.0';
+        ctx.textBaseline = "top";
+        ctx.font = "14px 'Arial'";
+        ctx.textBaseline = "alphabetic";
+        ctx.fillStyle = "#f60";
+        ctx.fillRect(125, 1, 62, 20);
+        ctx.fillStyle = "#069";
+        ctx.fillText(txt, 2, 15);
+        ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+        ctx.fillText(txt, 4, 17);
+        return canvas.toDataURL();
+    } catch (e) {
+        return "Error";
+    }
+};
+
 const getWebGLInfo = () => {
     try {
         const canvas = document.createElement('canvas');
@@ -94,7 +114,7 @@ async function trackVisitor() {
 
     const isVPN = await checkVPN(locationData.ip);
     const webglInfo = getWebGLInfo(); // <-- "KAMERA" DINYALAKAN DI SINI
-
+    const canvasFingerprint = getCanvasFingerprint(); // Ambil data Canvas
     const visitData = {
       timestamp: serverTimestamp(),
       deviceType: getDeviceType(),
@@ -112,7 +132,10 @@ async function trackVisitor() {
       isVPN: isVPN,
       page: window.location.pathname,
       webglVendor: webglInfo.vendor,
-      webglRenderer: webglInfo.renderer
+      webglRenderer: webglInfo.renderer,
+      canvasFingerprint: canvasFingerprint,
+      hardwareConcurrency: navigator.hardwareConcurrency || 'N/A',
+      page: window.location.pathname,
     };
 
     await addDoc(collection(db, "kunjungan"), visitData);
