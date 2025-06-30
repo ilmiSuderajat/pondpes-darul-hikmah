@@ -17,28 +17,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// --- FUNGSI-FUNGSI PENDETEKSI ---
-const getWebGLInfo = () => {
-    try {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (!gl) return { vendor: "N/A", renderer: "N/A" };
-        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        if (debugInfo) {
-            return {
-                vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
-                renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
-            };
-        }
-        return { vendor: "N/A", renderer: "N/A" };
-    } catch (e) {
-        return { vendor: "Error", renderer: "Error" };
-    }
-};
 
+// --- FUNGSI PENDETEKSI PERANGKAT (LENGKAP) ---
 const parseUserAgent = () => {
     const ua = navigator.userAgent;
     let browser = "Lainnya", os = "Lainnya", osVersion = "", deviceModel = "";
+
     if (/android/i.test(ua)) {
         os = "Android";
         const androidVersionMatch = ua.match(/android\s([0-9\.]+)/i);
@@ -50,12 +34,14 @@ const parseUserAgent = () => {
         const osVersionMatch = ua.match(/os ([\d_]+)/i);
         if (osVersionMatch) osVersion = osVersionMatch[1].replace(/_/g, '.');
         if(/iPad/.test(ua)) deviceModel = "iPad"; else if(/iPhone/.test(ua)) deviceModel = "iPhone"; else if(/iPod/.test(ua)) deviceModel = "iPod";
-    } else if (/mac/i.test(ua)) os = "macOS"; else if (/win/i.test(ua)) os = "Windows";
+    } else if (/mac/i.test(ua)) os = "macOS";
+    else if (/win/i.test(ua)) os = "Windows";
 
     if (/firefox/i.test(ua)) browser = "Firefox";
     else if (/edg/i.test(ua)) browser = "Edge";
     else if (/chrome/i.test(ua) && !/edg/i.test(ua)) browser = "Chrome";
     else if (/safari/i.test(ua) && !/chrome/i.test(ua)) browser = "Safari";
+    
     return { browser, os, osVersion, deviceModel };
 };
 
@@ -66,10 +52,12 @@ const getDeviceType = () => {
     return "Desktop";
 };
 
+// Fungsi utama untuk melacak pengunjung
 async function trackVisitor() {
     try {
-        if (sessionStorage.getItem('visitorTracked_v5')) return;
+        if (sessionStorage.getItem('visitorTracked_v2')) return;
 
+        // Cukup satu API call ke ip-api.com untuk semua data
         const response = await fetch('http://ip-api.com/json/?fields=status,message,country,city,query,isp,proxy');
         if (!response.ok) return;
         
@@ -77,7 +65,6 @@ async function trackVisitor() {
         if (ipData.status !== 'success') return;
 
         const userAgentInfo = parseUserAgent();
-        const webglInfo = getWebGLInfo();
         
         const visitData = {
             timestamp: serverTimestamp(),
@@ -91,18 +78,15 @@ async function trackVisitor() {
             os: userAgentInfo.os,
             osVersion: userAgentInfo.osVersion,
             deviceModel: userAgentInfo.deviceModel,
-            dpr: window.devicePixelRatio || 'N/A',
             screenWidth: window.screen.width,
             screenHeight: window.screen.height,
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             page: window.location.pathname,
-            webglVendor: webglInfo.vendor,
-            webglRenderer: webglInfo.renderer
         };
         
         await addDoc(collection(db, "kunjungan"), visitData);
-        sessionStorage.setItem('visitorTracked_v5', 'true');
-        console.log("Kunjungan (v5 Final) berhasil dicatat:", visitData);
+        sessionStorage.setItem('visitorTracked_v2', 'true');
+        console.log("Kunjungan (Lengkap) berhasil dicatat:", visitData);
 
     } catch (error) {
         console.error("Gagal melacak pengunjung:", error);

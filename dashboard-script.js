@@ -2,68 +2,141 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBcap3A_gPJMOvUKvUQ79Sn3ZaZ1j_UyJI",
-    authDomain: "ponpes-darul-hikmah.firebaseapp.com",
-    projectId: "ponpes-darul-hikmah",
-    storageBucket: "ponpes-darul-hikmah.firebasestorage.app",
-    messagingSenderId: "981565268728",
-    appId: "1:981565268728:web:057f00dde0905dd3c0910d",
-    measurementId: "G-HRPEJ9GNS1"
+  apiKey: "AIzaSyBcap3A_gPJMOvUKvUQ79Sn3ZaZ1j_UyJI",
+  authDomain: "ponpes-darul-hikmah.firebaseapp.com",
+  projectId: "ponpes-darul-hikmah",
+  storageBucket: "ponpes-darul-hikmah.firebasestorage.app",
+  messagingSenderId: "981565268728",
+  appId: "1:981565268728:web:057f00dde0905dd3c0910d",
+  measurementId: "G-HRPEJ9GNS1"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 document.addEventListener('DOMContentLoaded', () => {
-    const listContainer = document.getElementById('arsip-list-container');
-    if (!listContainer) return;
+  const listContainer = document.getElementById('arsip-list-container');
+  if (!listContainer) return;
 
-    const q = query(collection(db, "kunjungan"), orderBy("timestamp", "desc"));
+  const q = query(collection(db, "kunjungan"), orderBy("timestamp", "desc"));
 
-    onSnapshot(q, (snapshot) => {
-        listContainer.innerHTML = '';
-        if (snapshot.empty) {
-            listContainer.innerHTML = '<tr><td colspan="4" class="p-10 text-center text-gray-500">Belum ada data kunjungan.</td></tr>';
-            return;
-        }
+  // Simpan IP unik agar bisa tandai IP duplikat
+  const ipSet = new Set();
 
-        snapshot.forEach(doc => {
-            const d = doc.data();
-            
-            const waktu = d.timestamp ? new Date(d.timestamp.seconds * 1000).toLocaleString("id-ID", { dateStyle: 'medium', timeStyle: 'short' }) : 'N/A';
-            const lokasi = `${d.city || 'N/A'}, ${d.country || ''}`;
-            const perangkat = `${d.deviceModel || d.deviceType || 'N/A'} (${d.screenWidth || ''}x${d.screenHeight || ''})`;
-            const sistem = `${d.os || 'N/A'} ${d.osVersion || ''}`;
-            const browser = d.browser || 'N/A';
+  onSnapshot(q, (snapshot) => {
+    listContainer.innerHTML = '';
+
+    if (snapshot.empty) {
+      listContainer.innerHTML = '<div class="bg-white p-10 text-center text-gray-500">Belum ada data kunjungan yang tercatat.</div>';
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      const d = doc.data();
+
+      // Format waktu
+      const waktu = d.timestamp ? new Date(d.timestamp.seconds * 1000).toLocaleString("id-ID", { dateStyle: 'medium', timeStyle: 'short' }) : 'N/A';
+
+      const ip = d.ip || 'N/A';
+      const city = d.city || 'Tidak diketahui';
+      const country = d.country || '';
+
+      // Tandai merah jika IP sudah muncul sebelumnya
+      let ipClass = '';
+      if (ipSet.has(ip)) ipClass = 'text-red-600 font-bold';
+      else ipSet.add(ip);
+
+      // Tandai merah jika VPN detected
+      // ... bagian lain tetap sama
+
+        const vpnText = d.isVPN ? "Ya" : "Tidak";
+        const vpnClass = d.isVPN ? 'text-yellow-600 font-bold' : 'text-green-600';
+
+
+
+
+      const lokasi = `${city}, ${country}`;
+      const perangkat = d.deviceModel || d.deviceType || 'N/A';
+      const sistem = `${d.os || 'N/A'} ${d.osVersion || ''}`;
+      const browser = d.browser || 'N/A';
+      const halaman = d.page || '/';
+      const dpr = d.dpr || 'N/A';
+      const resolusi = (d.screenWidth && d.screenHeight) ? `${d.screenWidth} x ${d.screenHeight}` : 'N/A';
+      const timezone = d.timezone || 'N/A';
+
+       // PERUBAHAN DI SINI: Ambil data WebGL
             const webglVendor = d.webglVendor || 'N/A';
             const webglRenderer = d.webglRenderer || 'N/A';
 
-            const vpnBadge = d.isVPN 
-                ? `<span class="bg-red-200 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">VPN/Proxy</span>` 
-                : `<span class="bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Aman</span>`;
+      const itemHTML = `
+            <div class="bg-white p-4 border-b border-gray-200 md:grid md:grid-cols-10 md:gap-4 md:p-5 md:items-center text-sm text-gray-900">
 
-            const rowHTML = `
-                <tr class="text-sm">
-                    <td class="px-5 py-4 bg-white">
-                        <p class="text-gray-900 font-semibold whitespace-nowrap">${waktu}</p>
-                        <p class="text-gray-600">${lokasi}</p>
-                    </td>
-                    <td class="px-5 py-4 bg-white">
-                        <p class="text-gray-900 font-semibold">${perangkat}</p>
-                        <p class="text-gray-600">${sistem} - ${browser}</p>
-                    </td>
-                    <td class="px-5 py-4 bg-white">
-                        <p class="text-gray-900 font-semibold">${d.ip || 'N/A'}</p>
-                        <p class="text-gray-600">${d.isp || 'N/A'}</p>
-                        <div class="mt-1">${vpnBadge}</div>
-                    </td>
-                    <td class="px-5 py-4 bg-white">
-                         <p class="text-gray-900 font-semibold break-all" title="${webglRenderer}">${webglRenderer}</p>
-                         <p class="text-gray-600 break-all" title="${webglVendor}">${webglVendor}</p>
-                    </td>
-                </tr>
+                <!-- Waktu -->
+                <div class="mb-3 md:mb-0">
+                <p class="font-bold text-gray-500 md:hidden">Waktu Kunjungan</p>
+                <p>${waktu}</p>
+                </div>
+
+                <!-- IP & Lokasi -->
+                <div class="mb-3 md:mb-0">
+                <p class="font-bold text-gray-500 md:hidden">IP & Lokasi</p>
+                <p class="${ipClass}">${ip}</p>
+                <p class="text-gray-600">${lokasi}</p>
+                </div>
+
+                <!-- Perangkat -->
+                <div class="mb-3 md:mb-0">
+                <p class="font-bold text-gray-500 md:hidden">Perangkat</p>
+                <p>${perangkat}</p>
+                </div>
+
+                <!-- Sistem & Browser -->
+                <div class="mb-3 md:mb-0">
+                <p class="font-bold text-gray-500 md:hidden">Sistem & Browser</p>
+                <p class="font-semibold">${sistem}</p>
+                <p class="text-gray-600">${browser}</p>
+                </div>
+
+                <!-- Halaman -->
+                <div class="mb-3 md:mb-0 break-words">
+                <p class="font-bold text-gray-500 md:hidden">Halaman</p>
+                <p>${halaman}</p>
+                </div>
+
+                <!-- DPR -->
+                <div class="mb-3 md:mb-0">
+                <p class="font-bold text-gray-500 md:hidden">DPR</p>
+                <p>${dpr}</p>
+                </div>
+
+                <!-- Resolusi -->
+                <div class="mb-3 md:mb-0">
+                <p class="font-bold text-gray-500 md:hidden">Resolusi</p>
+                <p>${resolusi}</p>
+                </div>
+
+                <!-- Timezone -->
+                <div class="mb-3 md:mb-0">
+                <p class="font-bold text-gray-500 md:hidden">Timezone</p>
+                <p>${timezone} ${d.isVPN ? '(VPN)' : ''}</p>
+                </div>
+
+                <!-- VPN -->
+                <div class="mb-3 md:mb-0">
+                <p class="font-bold text-gray-500 md:hidden">VPN</p>
+                <p class="${vpnClass}">${vpnText}</p>
+                </div>
+
+                <!-- webGL -->
+                <div class="mb-3 md:mb-0">
+                <p class="text-gray-900 font-semibold" title="${webglRenderer}">Renderer: ${webglRenderer.substring(0, 30)}...</p>
+                <p class="text-gray-600" title="${webglVendor}">Vendor: ${webglVendor.substring(0, 30)}...</p>
+                </div>
+
+            </div>
             `;
-            listContainer.innerHTML += rowHTML;
-        });
+
+      listContainer.innerHTML += itemHTML;
     });
+  });
 });
