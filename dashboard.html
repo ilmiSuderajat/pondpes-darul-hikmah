@@ -1,52 +1,49 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/a685cbb4d0.js" crossorigin="anonymous"></script>
-    <title>Arsip Kunjungan - Admin Panel</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arsip Kunjungan - Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a685cbb4d0.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
 
-    <!-- Header Halaman -->
-    <header class="bg-white shadow-md">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">
-                Arsip Kunjungan
-            </h1>
-            <a href="admin.html" class="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 text-sm md:text-base">
-                <i class="fas fa-arrow-left mr-2"></i>Kembali
-            </a>
+  <header class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Arsip Kunjungan</h1>
+      <a href="admin.html" class="bg-gray-800 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 text-sm md:text-base inline-flex items-center">
+        <i class="fas fa-arrow-left mr-2"></i> Kembali
+      </a>
+    </div>
+  </header>
+
+  <main class="py-10 flex-grow">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+      <div class="hidden md:grid md:grid-cols-9 gap-4 px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-t-lg select-none">
+    <div>Waktu Kunjungan</div>
+    <div>IP &amp; Lokasi</div>
+    <div>Perangkat</div>
+    <div>Sistem &amp; Browser</div>
+    <div>Halaman</div>
+    <div>DPR</div>
+    <div>Resolusi</div>
+    <div>Timezone</div>
+    <div>VPN</div>
+    </div>
+
+
+      <div id="arsip-list-container" class="space-y-4 md:space-y-0">
+        <div id="loading-state" class="text-center p-10 text-gray-500">
+          <div class="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          Memuat data arsip...
         </div>
-    </header>
+      </div>
 
-    <!-- Konten Utama: Daftar Arsip Responsif -->
-    <main class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
-            <!-- Kepala Tabel (hanya muncul di desktop) -->
-            <div class="hidden md:grid md:grid-cols-5 gap-4 px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-t-lg">
-                <div>Waktu Kunjungan</div>
-                <div>IP & Lokasi</div>
-                <div>Perangkat</div>
-                <div>Sistem & Browser</div>
-                <div>Halaman</div>
-            </div>
+    </div>
+  </main>
 
-            <!-- Wadah untuk data arsip -->
-            <div id="arsip-list-container" class="space-y-4 md:space-y-0">
-                <!-- Tampilan Loading Awal -->
-                <div id="loading-state" class="text-center p-10 text-gray-500">
-                    <div class="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    Memuat data arsip...
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="dashboard-script.js" type="module"></script>
+  <script type="module" src="dashboard-script.js"></script>
 </body>
 </html>
