@@ -22,14 +22,13 @@ const getWebGLInfo = () => {
     try {
         const canvas = document.createElement('canvas');
         const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (!gl) {
-            return { vendor: "N/A", renderer: "N/A" };
-        }
+        if (!gl) return { vendor: "N/A", renderer: "N/A" };
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
         if (debugInfo) {
-            const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-            const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-            return { vendor, renderer };
+            return {
+                vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+                renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
+            };
         }
         return { vendor: "N/A", renderer: "N/A" };
     } catch (e) {
@@ -51,8 +50,7 @@ const parseUserAgent = () => {
         const osVersionMatch = ua.match(/os ([\d_]+)/i);
         if (osVersionMatch) osVersion = osVersionMatch[1].replace(/_/g, '.');
         if(/iPad/.test(ua)) deviceModel = "iPad"; else if(/iPhone/.test(ua)) deviceModel = "iPhone"; else if(/iPod/.test(ua)) deviceModel = "iPod";
-    } else if (/mac/i.test(ua)) os = "macOS";
-    else if (/win/i.test(ua)) os = "Windows";
+    } else if (/mac/i.test(ua)) os = "macOS"; else if (/win/i.test(ua)) os = "Windows";
 
     if (/firefox/i.test(ua)) browser = "Firefox";
     else if (/edg/i.test(ua)) browser = "Edge";
@@ -70,7 +68,7 @@ const getDeviceType = () => {
 
 async function trackVisitor() {
     try {
-        if (sessionStorage.getItem('visitorTracked_v4')) return;
+        if (sessionStorage.getItem('visitorTracked_v5')) return;
 
         const response = await fetch('http://ip-api.com/json/?fields=status,message,country,city,query,isp,proxy');
         if (!response.ok) return;
@@ -79,7 +77,7 @@ async function trackVisitor() {
         if (ipData.status !== 'success') return;
 
         const userAgentInfo = parseUserAgent();
-        const webglInfo = getWebGLInfo(); // <-- "KAMERA" DINYALAKAN DI SINI
+        const webglInfo = getWebGLInfo();
         
         const visitData = {
             timestamp: serverTimestamp(),
@@ -98,14 +96,13 @@ async function trackVisitor() {
             screenHeight: window.screen.height,
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             page: window.location.pathname,
-            // <-- "LACI" BARU UNTUK MENYIMPAN HASIL REKAMAN
             webglVendor: webglInfo.vendor,
             webglRenderer: webglInfo.renderer
         };
         
         await addDoc(collection(db, "kunjungan"), visitData);
-        sessionStorage.setItem('visitorTracked_v4', 'true');
-        console.log("Kunjungan (dengan WebGL) berhasil dicatat:", visitData);
+        sessionStorage.setItem('visitorTracked_v5', 'true');
+        console.log("Kunjungan (v5 Final) berhasil dicatat:", visitData);
 
     } catch (error) {
         console.error("Gagal melacak pengunjung:", error);
